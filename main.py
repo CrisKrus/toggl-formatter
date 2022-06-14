@@ -1,13 +1,15 @@
-from this import d
 import pandas as pd
 
 start_date = "Start date"
+start_time = "Start time"
+end_date = "End date"
+end_time = "End time"
 duration = "Duration"
 
-df = pd.read_csv("input/Toggl_time_entries.csv")[[start_date, duration, "Start time", "End date","End time"]]
+df = pd.read_csv("input/Toggl_time_entries.csv")[[start_date, duration, start_time, end_date, end_time]]
 
-df["start_datetime"] = pd.to_datetime(df[start_date] + "T" + df["Start time"] + "Z")
-df["end_datetime"] = pd.to_datetime(df["End date"] + "T" + df["End time"] + "Z")
+df["start_datetime"] = pd.to_datetime(df[start_date] + "T" + df[start_time] + "Z")
+df["end_datetime"] = pd.to_datetime(df[end_date]  + "T" + df[end_time] + "Z")
 df["duration_datetime"] = df["end_datetime"] - df["start_datetime"]
 
 
