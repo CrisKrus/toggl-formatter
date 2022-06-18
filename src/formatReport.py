@@ -10,6 +10,9 @@ duration = "Duration"
 class FormatReport:
     @staticmethod
     def _calculate_date_time(df: pd.DataFrame) -> pd.DataFrame:
+        # TODO remove side effect that creates `start_datetime` and `end_datetime`
+        # TODO rename method: it calculates but maybe is better to call it as append
+        # because it adds a new column to the dataframe
         df["start_datetime"] = pd.to_datetime(df[start_date] + "T" + df[start_time] + "Z")
         df["end_datetime"] = pd.to_datetime(df[end_date] + "T" + df[end_time] + "Z")
         df["duration_datetime"] = df["end_datetime"] - df["start_datetime"]

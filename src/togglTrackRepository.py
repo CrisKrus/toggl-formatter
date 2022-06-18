@@ -23,7 +23,7 @@ class TogglTrackRepository:
         # we delete the first 3 characters because are weird ï»¿
         # in some point we should investigate why is coming
         # if it does not come we are deleting 'Use' from 'User' header
-        if report_details.startswith("User", beg=0, end=8):
+        if report_details.startswith("User", 0, 8):
             return report_details
 
         return report_details[3:]
