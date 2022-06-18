@@ -37,20 +37,14 @@ class TestFormatReport(unittest.TestCase):
         df = pd.DataFrame([
             {
                 "Start date": "2022-02-02",
-                "start_datetime": "2022-02-02T20:20:20Z",
-                "end_datetime": "2022-02-02T22:20:20Z",
                 "duration_datetime": pd.Timedelta("2 hours"),
             },
             {
                 "Start date": "2022-02-02",
-                "start_datetime": "2022-02-02T20:20:20Z",
-                "end_datetime": "2022-02-02T22:20:20Z",
                 "duration_datetime": pd.Timedelta("2 hours"),
             },
             {
                 "Start date": "2022-02-03",
-                "start_datetime": "2022-02-03T20:20:20Z",
-                "end_datetime": "2022-02-03T22:20:20Z",
                 "duration_datetime": pd.Timedelta("2 hours"),
             },
         ])
