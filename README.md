@@ -15,6 +15,7 @@ This file should be like the following:
 
 ```text
 TOGGL_PROFILE_TOKEN={your_token_here}
+USER_AGENT={some_identifier}
 ```
 
 ### Where can I find my toggl track token?

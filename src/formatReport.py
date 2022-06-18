@@ -8,6 +8,9 @@ duration = "Duration"
 
 
 class FormatReport:
+    def __init__(self):
+        pass
+
     @staticmethod
     def _calculate_date_time(df: pd.DataFrame) -> pd.DataFrame:
         # TODO remove side effect that creates `start_datetime` and `end_datetime`
@@ -31,7 +34,7 @@ class FormatReport:
         current_month_time = current_month_time\
             .astype({'seconds': 'int', 'hours': 'int', 'minutes': 'int'})\
             .astype({'seconds': 'str', 'hours': 'str', 'minutes': 'str'})
-        current_month_time['duration'] = f"{current_month_time['hours']}:{current_month_time['minutes']}:{current_month_time['seconds']}"
+        current_month_time['duration'] = current_month_time['hours'] + ":" + current_month_time['minutes'] + ":" + current_month_time["seconds"]
 
         return current_month_time[['date', 'duration']]
 
