@@ -1,13 +1,4 @@
-import os
-
-import pandas as pd
 import requests
-from dotenv import load_dotenv
-from io import StringIO
-
-load_dotenv()
-
-TOGGL_PROFILE_TOKEN = os.getenv("TOGGL_PROFILE_TOKEN")
 
 
 class TogglTrackRepository:
@@ -43,11 +34,4 @@ class TogglTrackRepository:
             auth=(self.API_TOKEN, "api_token"),
         )
 
-        return workspaces.json
-
-# from now, we will take just the first workspace_id
-first_workspace_id = workspaces.json()[0]["id"]
-
-df = pd.read_csv(StringIO(detailed_report))
-
-print(df.head())
+        return workspaces.json()
