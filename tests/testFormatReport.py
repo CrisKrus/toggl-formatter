@@ -85,6 +85,104 @@ class TestFormatReport(unittest.TestCase):
 
         assert_frame_equal(result, expected)
 
+    def test_fill_all_month_dates_with_working_hours(self):
+        month_dates = pd.DataFrame(["2022-02-01", "2022-02-02", "2022-02-03"], columns=["date"])
+        working_hours = pd.DataFrame([
+            {
+                "date": "2022-02-01",
+                "duration": "4:0:0",
+            },
+            {
+                "date": "2022-02-02",
+                "duration": "4:0:0",
+            },
+            {
+                "date": "2022-02-03",
+                "duration": "2:0:0",
+            },
+        ])
+
+        result = FormatReport._fill_all_month_dates_with_working_hours(month_dates, working_hours)
+
+        expected = pd.DataFrame([
+            {
+                "date": "2022-02-01",
+                "duration": "4:0:0",
+            },
+            {
+                "date": "2022-02-02",
+                "duration": "4:0:0",
+            },
+            {
+                "date": "2022-02-03",
+                "duration": "2:0:0",
+            },
+        ])
+        assert_frame_equal(result, expected)
+
+    def test_fill_all_month_dates_with_working_hours_complete_empty_days_with_0_hours(self):
+        day_with_missing_working_hours = "2022-02-02"
+        month_dates = pd.DataFrame(["2022-02-01", day_with_missing_working_hours, "2022-02-03"], columns=["date"])
+        working_hours = pd.DataFrame([
+            {
+                "date": "2022-02-01",
+                "duration": "4:0:0",
+            },
+            {
+                "date": "2022-02-03",
+                "duration": "2:0:0",
+            },
+        ])
+
+        result = FormatReport._fill_all_month_dates_with_working_hours(month_dates, working_hours)
+
+        expected = pd.DataFrame([
+            {
+                "date": "2022-02-01",
+                "duration": "4:0:0",
+            },
+            {
+                "date": day_with_missing_working_hours,
+                "duration": "00:00:00",
+            },
+            {
+                "date": "2022-02-03",
+                "duration": "2:0:0",
+            },
+        ])
+        assert_frame_equal(result, expected)
+
+    def test_fill_all_month_dates_with_working_hours_not_fill_working_hours_outside_of_the_month(self):
+        month_dates = pd.DataFrame(["2022-02-01", "2022-02-02"], columns=["date"])
+        date_outside_of_the_month = "2022-02-03"
+        working_hours = pd.DataFrame([
+            {
+                "date": "2022-02-01",
+                "duration": "4:0:0",
+            },
+            {
+                "date": "2022-02-02",
+                "duration": "4:0:0",
+            },
+            {
+                "date": date_outside_of_the_month,
+                "duration": "2:0:0",
+            },
+        ])
+
+        result = FormatReport._fill_all_month_dates_with_working_hours(month_dates, working_hours)
+
+        expected = pd.DataFrame([
+            {
+                "date": "2022-02-01",
+                "duration": "4:0:0",
+            },
+            {
+                "date": "2022-02-02",
+                "duration": "4:0:0",
+            },
+        ])
+        assert_frame_equal(result, expected)
 
 if __name__ == '__main__':
     unittest.main()
