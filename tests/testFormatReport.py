@@ -70,6 +70,21 @@ class TestFormatReport(unittest.TestCase):
 
         assert_frame_equal(result, expected)
 
+    def test_calculate_all_dates_for_month(self):
+        month = "02"
+        year = "2022"
+
+        result = FormatReport._calculate_all_dates_from_month(month, year)
+
+        expected = pd.DataFrame([
+            "2022-02-01", "2022-02-02", "2022-02-03", "2022-02-04", "2022-02-05", "2022-02-06", "2022-02-07",
+            "2022-02-08", "2022-02-09", "2022-02-10", "2022-02-11", "2022-02-12", "2022-02-13", "2022-02-14",
+            "2022-02-15", "2022-02-16", "2022-02-17", "2022-02-18", "2022-02-19", "2022-02-20", "2022-02-21",
+            "2022-02-22", "2022-02-23", "2022-02-24", "2022-02-25", "2022-02-26", "2022-02-27", "2022-02-28",
+        ], columns=["date"])
+
+        assert_frame_equal(result, expected)
+
 
 if __name__ == '__main__':
     unittest.main()
