@@ -130,6 +130,7 @@ class FormatReport:
         return month_dates.merge(working_hours, on='date', how='left').fillna("00:00:00")
 
     def get_monthly_report(self, df):
+        # TODO test or/and move this method to some kind of controller
         df = self._calculate_date_time(df)
         working_hours = self._calculate_working_hours_per_date(df)
 
